@@ -47,6 +47,8 @@ class MainActivity : AppCompatActivity() {
             val intent = Intent(this,AdminloginActivity::class.java)
             startActivity(intent)
         }
+
+
     }
     override fun onDestroy() {// 엑티비티가 종료시 close
         localDB.close()

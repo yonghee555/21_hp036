@@ -36,7 +36,7 @@ class RegisterActivity : AppCompatActivity() {
                     if(localDB.checkIdExist(binding.editId.text.toString())){// 아이디 중복 확인
                         Toast.makeText(this,"아이디가 이미 존재합니다.",Toast.LENGTH_LONG).show()// 존재하는 아이디
                     }else{
-                        localDB.registerUser(binding.editId.text.toString(),binding.editPw.text.toString())//회원가입 성공
+                        localDB.registerUser(binding.editId.text.toString(),binding.editPw.text.toString(),binding.editName.text.toString(),binding.editTel.text.toString())//회원가입 성공
                         showSettingPopup()
                     }
                 }else{ // 패스워드/패스워드 확인이 일치하지 않음

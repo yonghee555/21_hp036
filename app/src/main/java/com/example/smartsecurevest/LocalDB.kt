@@ -2,9 +2,11 @@ package com.example.smartsecurevest
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.provider.BaseColumns
+import android.util.Log
 
 class LocalDB (
     context: Context?,
@@ -36,17 +38,21 @@ class LocalDB (
         var sql: String = "CREATE TABLE if not exists ${LocalDatas.userData.TABLE_NAME} (" +
                 "${BaseColumns._ID} integer primary key autoincrement," +
                 "${LocalDatas.userData.COLUMN_NAME_ID} varchar(15)," +
-                "${LocalDatas.userData.COLUMN_NAME_PASSWORD} varchar(20)"+
+                "${LocalDatas.userData.COLUMN_NAME_PASSWORD} varchar(20),"+
+                "${LocalDatas.userData.COLUMN_NAME_NAME} varchar(20)," +
+                "${LocalDatas.userData.COLUMN_NAME_TEL} varchar(100)"+
                 ");"
 
         db.execSQL(sql)
     }
 
-    fun registerUser(id:String, password:String){
+    fun registerUser(id:String, password:String, name: String, tel : String){
         val db =this.writableDatabase
         val values = ContentValues().apply {// insert될 데이터값
             put(LocalDatas.userData.COLUMN_NAME_ID, id)
             put(LocalDatas.userData.COLUMN_NAME_PASSWORD, password)
+            put(LocalDatas.userData.COLUMN_NAME_NAME, name)
+            put(LocalDatas.userData.COLUMN_NAME_TEL, tel)
         }
         val newRowId = db?.insert(LocalDatas.userData.TABLE_NAME, null, values)
 // 인서트후 인서트된 primary key column의 값(_id) 반환.
@@ -83,6 +89,7 @@ class LocalDB (
         }
 
     }
+
     fun logIn(id: String, password:String): Boolean {
         val db = this.readableDatabase
 
@@ -113,4 +120,5 @@ class LocalDB (
             return false;
         }
     }
+
 }
